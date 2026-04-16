@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jigar Patel — Principal SRE & DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1A;
+    --bg-2: #0F1420;
+    --card: #141926;
+    --border: #1E2433;
+    --text: #E6E8EC;
+    --text-dim: #8B93A7;
+    --accent: #4ADE80;
+    --accent-2: #60A5FA;
+    --accent-3: #F59E0B;
+    --danger: #F87171;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(74, 222, 128, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 222, 128, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 0;
+    backdrop-filter: blur(20px);
+    background: rgba(10, 14, 26, 0.7);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+  }
+
+  .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .logo::before {
+    content: '> ';
+    color: var(--text-dim);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 70px 0 0px;
+    position: relative;
+  }
+
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 8vw, 108px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 20px;
+    color: var(--text-dim);
+    max-width: 640px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hero-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-meta-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .hero-meta-value a { color: var(--accent-2); text-decoration: none; }
+  .hero-meta-value a:hover { color: var(--accent); }
+
+  /* METRICS */
+  .metrics {
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-2);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .metric {
+    text-align: left;
+  }
+
+  .metric-value {
+    font-family: 'Instrument Serif', serif;
+    font-size: 64px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .metric-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 80px 0 120px;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 400;
+    letter-spacing: -2px;
+    margin-bottom: 80px;
+    max-width: 780px;
+    line-height: 1;
+  }
+
+  .section-title em { color: var(--accent); font-style: italic; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text {
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .about-text p {
+    margin-bottom: 24px;
+  }
+
+  .about-text strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .about-stats {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 40px;
+    border-radius: 2px;
+  }
+
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat-row:last-child { border-bottom: 0; }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  .stat-value {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 120px 1fr auto;
+    gap: 40px;
+    padding: 40px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.3s;
+    align-items: start;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s;
+  }
+
+  .project:hover {
+    border-color: rgba(74, 222, 128, 0.3);
+    background: #181E2E;
+  }
+
+  .project:hover::before {
+    transform: scaleY(1);
+  }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .project-main {
+    min-width: 0;
+  }
+
+  .project-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .project-tagline {
+    font-size: 15px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .project-desc {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .project-tech {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    padding: 4px 10px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .project-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 10px 16px;
+    border: 1px solid var(--accent);
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* EXPERIENCE */
+  .experience {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 60px;
+  }
+
+  .exp-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 60px;
+  }
+
+  .exp-item:last-child { border-bottom: 0; }
+
+  .exp-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .exp-company {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .exp-role {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .exp-body {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .exp-body p { margin-bottom: 12px; }
+  .exp-body strong { color: var(--text); font-weight: 600; }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .skill-card {
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .skill-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-list li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 6px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  /* LEADERSHIP */
+  .leadership-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .leadership-card {
+    padding: 36px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .leadership-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at top right, rgba(74, 222, 128, 0.06), transparent 70%);
+    pointer-events: none;
+  }
+
+  .leadership-card:hover {
+    border-color: rgba(74, 222, 128, 0.25);
+    background: #181E2E;
+    transform: translateY(-2px);
+  }
+
+  .leadership-icon {
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .leadership-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .leadership-body {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .leadership-body strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* AWS SECTION */
+  .aws-section {
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .aws-intro {
+    font-size: 18px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    max-width: 780px;
+    margin-bottom: 60px;
+  }
+
+  .aws-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .aws-card {
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .aws-card:hover {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: #181E2E;
+    transform: translateY(-2px);
+  }
+
+  .aws-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-3);
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 4px 10px;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  .aws-card-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+
+  .aws-card-body {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 160px 0;
+    text-align: center;
+  }
+
+  .contact-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(56px, 9vw, 128px);
+    font-weight: 400;
+    line-height: 0.95;
+    margin-bottom: 48px;
+    letter-spacing: -4px;
+  }
+
+  .contact-title em { color: var(--accent); font-style: italic; }
+
+  .contact-methods {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .contact-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    padding: 18px 32px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 700;
+  }
+
+  .contact-btn-primary:hover {
+    background: transparent;
+    color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+  }
+
+  .contact-btn-ghost {
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .contact-btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer a { color: var(--text-dim); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s, transform 0.8s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .project { grid-template-columns: 1fr; gap: 24px; padding: 32px; }
+    .exp-item { grid-template-columns: 1fr; gap: 24px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .leadership-grid { grid-template-columns: 1fr; }
+    .aws-grid { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; gap: 20px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .contact-methods { flex-direction: column; align-items: center; }
+    .contact-btn { width: 100%; max-width: 320px; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a href="#top" class="logo" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">jigar.patel</a>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#leadership">leadership</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#aws">aws</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label reveal">Available for new opportunities</div>
+    <h1 class="reveal">Jigar Patel.<br>Building <em>reliable</em><br>cloud infrastructure.</h1>
+    <p class="hero-sub reveal">Principal SRE &amp; DevOps Engineer with 14 years building automation, observability, and GenAI-integrated incident response at enterprise scale.</p>
+
+    <div class="hero-meta reveal">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Based in</span>
+        <span class="hero-meta-value">Buford, GA</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Currently</span>
+        <span class="hero-meta-value">Open to roles</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">GitHub</span>
+        <span class="hero-meta-value"><a href="https://github.com/jigarp77" target="_blank">@jigarp77</a></span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Email</span>
+        <span class="hero-meta-value"><a href="mailto:jigardpatel77@gmail.com">jigardpatel77@gmail.com</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label reveal">// about</div>
+    <h2 class="section-title reveal">Engineering <em>reliability</em> at the scale where automation matters.</h2>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I've spent most of my career making cloud infrastructure work the way it's supposed to — quietly, reliably, and without needing a human at 2am to figure out what broke.</p>
+        <p>Right now I'm <strong>Principal SRE at Oracle America</strong>, leading enterprise application migrations from AWS and on-prem into Oracle Cloud Infrastructure. The more interesting work has been integrating GenAI directly into our incident response pipeline — parsing logs, generating root cause summaries, and cutting diagnosis time roughly in half.</p>
+        <p>Before Oracle, three years at <strong>Intel Corporation</strong> standardizing CI/CD for 20+ engineering teams through Jenkins shared libraries and GitHub Actions templates. Before that, four and a half years at <strong>Capgemini supporting Synchrony Financial</strong> running Apigee in production — which is where I really learned what ownership of production infrastructure means.</p>
+        <p>AWS Certified Solutions Architect. Fluent in Terraform, Ansible, Kubernetes, Python, Helm.</p>
+      </div>
+
+      <div class="about-stats reveal">
+        <div class="stat-row">
+          <span class="stat-label">Current Role</span>
+          <span class="stat-value">Principal SRE, Oracle</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Experience</span>
+          <span class="stat-value">14 years</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Certifications</span>
+          <span class="stat-value">AWS SAA, Chef Fluency</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Education</span>
+          <span class="stat-value">MS CS, NYIT</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Focus Areas</span>
+          <span class="stat-value">SRE, GenAI Ops, IaC</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Location</span>
+          <span class="stat-value">Buford, GA / Remote</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label reveal">// projects</div>
+    <h2 class="section-title reveal">Open source <em>work</em>.</h2>
+
+    <div class="projects-grid">
+
+      <div class="project reveal">
+        <div class="project-num">01 /</div>
+        <div class="project-main">
+          <div class="project-name">k8s-autopilot</div>
+          <div class="project-tagline">AI Remediation Engine for Kubernetes</div>
+          <div class="project-desc">An AI-powered remediation engine for Kubernetes clusters. Detects common failure patterns and executes remediation playbooks automatically. Built to reduce on-call pager volume by catching issues before they require human intervention.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Kubernetes</span>
+            <span class="tech-tag">LLM</span>
+            <span class="tech-tag">Automation</span>
+          </div>
+        </div>
+        <a href="https://github.com/jigarp77/k8s-autopilot" target="_blank" class="project-link">view repo →</a>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">02 /</div>
+        <div class="project-main">
+          <div class="project-name">cloudwatch-analyzer</div>
+          <div class="project-tagline">Automated Root-Cause Analysis for AWS Incidents</div>
+          <div class="project-desc">End-to-end automated root-cause analysis pipeline for AWS incidents. Pulls CloudWatch logs, correlates events across services, and produces human-readable incident summaries — the kind of tooling I wish I'd had during 2am outages.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">CloudWatch</span>
+            <span class="tech-tag">LLM</span>
+            <span class="tech-tag">SRE</span>
+          </div>
+        </div>
+        <a href="https://github.com/jigarp77/cloudwatch-analyzer" target="_blank" class="project-link">view repo →</a>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">03 /</div>
+        <div class="project-main">
+          <div class="project-name">AWSCloudAudit</div>
+          <div class="project-tagline">Multi-Account AWS Audit Framework</div>
+          <div class="project-desc">Production-grade AWS audit framework scanning security, cost, access, health, network, and data protection across multiple accounts. Generates audience-specific reports for engineering, security, and leadership audiences.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">IAM</span>
+            <span class="tech-tag">Security</span>
+            <span class="tech-tag">Compliance</span>
+          </div>
+        </div>
+        <a href="https://github.com/jigarp77/AWSCloudAudit" target="_blank" class="project-link">view repo →</a>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">04 /</div>
+        <div class="project-main">
+          <div class="project-name">awx-log-processor</div>
+          <div class="project-tagline">Ansible AWX Log Analysis</div>
+          <div class="project-desc">Processing and analysis pipeline for Ansible AWX execution logs. Parses playbook output, extracts failure patterns, and surfaces actionable insights from automation runs at scale.</div>
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Ansible</span>
+            <span class="tech-tag">AWX</span>
+            <span class="tech-tag">Log Analysis</span>
+          </div>
+        </div>
+        <a href="https://github.com/jigarp77/awx-log-processor" target="_blank" class="project-link">view repo →</a>
+      </div>
+
+      <div class="project reveal">
+        <div class="project-num">05 /</div>
+        <div class="project-main">
+          <div class="project-name">etf-tracker</div>
+          <div class="project-tagline">ETF Portfolio Tracking Application</div>
+          <div class="project-desc">TypeScript-based application for tracking leveraged ETF positions and market data. Built to solve my own need for a cleaner view of semiconductor and oil sector ETFs during active trading.</div>
+          <div class="project-tech">
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">Finance</span>
+          </div>
+        </div>
+        <a href="https://github.com/jigarp77/etf-tracker" target="_blank" class="project-link">view repo →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience">
+  <div class="container">
+    <div class="section-label reveal">// experience</div>
+    <h2 class="section-title reveal">Where I've been <em>building</em>.</h2>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-company">Oracle America</div>
+        <div class="exp-period">Aug 2025 → Present</div>
+        <div class="exp-role">Principal SRE</div>
+      </div>
+      <div class="exp-body">
+        <p>Leading migration of enterprise applications from on-prem environments to Oracle Cloud Infrastructure using Terraform, Ansible, and Python.</p>
+        <p>Wrote Python automation covering <strong>infrastructure audits, config management, and self-healing tasks</strong> — ops overhead for the team dropped by roughly 60%.</p>
+        <p>Integrated GenAI into the log analysis pipeline. System reads application logs and produces root cause summaries automatically, reducing incident diagnosis time by ~50%.</p>
+        <p>Built a self-healing framework on <strong>OCI Events, Python, and Ansible</strong> — common failure patterns trigger remediation playbooks automatically without human intervention.</p>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-company">Intel Corporation</div>
+        <div class="exp-period">Jun 2022 → Aug 2025</div>
+        <div class="exp-role">Senior DevOps Engineer</div>
+      </div>
+      <div class="exp-body">
+        <p>Built <strong>Jenkins Shared Libraries and GitHub Actions templates</strong> that became the standard CI/CD approach for 20+ engineering teams across Intel.</p>
+        <p>Led the <strong>AWS Audit Automation project</strong> — framework analyzed configurations, IAM policies, and compliance posture across multiple accounts, flagging drift against security standards automatically.</p>
+        <p>Managed large-scale Kubernetes and AWS EKS clusters day-to-day. Helm chart templates and Helmfile configs standardized onboarding across teams.</p>
+        <p>Designed multi-region AWS environments with auto-scaling, health checks, and DR built in from the start. Integrated Dynatrace and CloudWatch monitoring with custom alert rules.</p>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-company">Capgemini / Synchrony</div>
+        <div class="exp-period">Dec 2017 → Jun 2022</div>
+        <div class="exp-role">Senior Cloud Engineer</div>
+      </div>
+      <div class="exp-body">
+        <p>Owned the <strong>Apigee private cloud cluster</strong> in production for Synchrony Financial — Cassandra, Zookeeper, Message Processor, Edge UI, Management Server, Router, Load Balancer.</p>
+        <p>Wrote Chef cookbooks and Ansible playbooks for server config, Linux patching, Cassandra repair, backups, and service restarts across the environment.</p>
+        <p>Automated API proxy build and deployment using Jenkins, Bitbucket, JMeter, Maven, and Apigee Edge. Created Concourse pipeline for automated backups to AWS S3.</p>
+        <p>Set up NewRelic monitoring for server health, components, services, and JMX parameters. Built iOS and Android mobile CI/CD pipelines.</p>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-company">Earlier Roles</div>
+        <div class="exp-period">2011 → 2017</div>
+        <div class="exp-role">Cloud Engineer / Developer</div>
+      </div>
+      <div class="exp-body">
+        <p>Cloud Engineer at <strong>NCG/Barclays</strong> and <strong>Prosoft/Barclays</strong> — AWS infrastructure setup, Rackspace private cloud administration, CI/CD implementation with Git/Jenkins/Chef.</p>
+        <p>Earlier web development and DevOps roles at Fresco Web Technology and Rapid Infosoft in Ahmedabad, India — AWS services, Jenkins automation, Puppet Enterprise, Java/J2EE CI/CD.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+  <div class="container">
+    <div class="section-label reveal">// leadership</div>
+    <h2 class="section-title reveal">Teams, <em>mentorship</em>, and cross-functional work.</h2>
+
+    <div class="leadership-grid">
+      <div class="leadership-card reveal">
+        <div class="leadership-icon">◆</div>
+        <h3 class="leadership-title">Cross-Regional Team Leadership</h3>
+        <p class="leadership-body">Led and coordinated DevOps teams across <strong>US, UK, and India</strong> regions. Managed handoffs across time zones, aligned technical direction, and kept delivery on track through cultural and operational differences.</p>
+      </div>
+
+      <div class="leadership-card reveal">
+        <div class="leadership-icon">◆</div>
+        <h3 class="leadership-title">Platform Standardization at Intel</h3>
+        <p class="leadership-body">Built the Jenkins shared libraries and GitHub Actions templates that became the standard CI/CD approach for <strong>20+ engineering teams</strong>. Partnered with each team lead to migrate them off bespoke pipelines.</p>
+      </div>
+
+      <div class="leadership-card reveal">
+        <div class="leadership-icon">◆</div>
+        <h3 class="leadership-title">Mentorship &amp; Engineering Coaching</h3>
+        <p class="leadership-body">Mentored DevOps engineers at <strong>Intel and Capgemini</strong> on infrastructure-as-code and cloud best practices. Ran working sessions on Terraform patterns, Helm chart design, and incident response.</p>
+      </div>
+
+      <div class="leadership-card reveal">
+        <div class="leadership-icon">◆</div>
+        <h3 class="leadership-title">Incident Response &amp; On-Call Leadership</h3>
+        <p class="leadership-body">Led incident triage and production recovery across critical financial and enterprise systems. Built GenAI-assisted log analysis that reduced incident diagnosis time by ~50% and lowered on-call page volume team-wide.</p>
+      </div>
+
+      <div class="leadership-card reveal">
+        <div class="leadership-icon">◆</div>
+        <h3 class="leadership-title">Agile &amp; Cross-Functional Delivery</h3>
+        <p class="leadership-body">Embedded in Scrum teams across multiple product lines. Partnered with product managers and development teams to prioritize automation work and integrate reliability engineering into release cycles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label reveal">// skills</div>
+    <h2 class="section-title reveal">The <em>toolkit</em>.</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-title">AWS (Primary Cloud)</div>
+        <ul class="skill-list">
+          <li>EC2</li><li>EKS</li><li>VPC</li><li>IAM</li><li>Route53</li>
+          <li>S3</li><li>RDS</li><li>ALB / ELB</li><li>CloudWatch</li><li>CloudFormation</li>
+          <li>CloudFront</li><li>Lambda</li><li>Auto Scaling</li><li>KMS</li><li>SQS / SNS</li>
+          <li>DynamoDB</li><li>Glacier</li><li>CloudTrail</li><li>Kinesis</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">Other Cloud Platforms</div>
+        <ul class="skill-list">
+          <li>Oracle OCI</li><li>OpenStack</li><li>VMware</li>
+          <li>Rackspace</li><li>PCF</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">Containers &amp; Orchestration</div>
+        <ul class="skill-list">
+          <li>Kubernetes</li><li>AWS EKS</li><li>Helm</li><li>Docker</li>
+          <li>Rancher</li><li>KEDA</li><li>Helmfile</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">IaC &amp; Automation</div>
+        <ul class="skill-list">
+          <li>Terraform</li><li>Ansible</li><li>CloudFormation</li>
+          <li>Chef</li><li>Puppet</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">CI/CD &amp; DevOps</div>
+        <ul class="skill-list">
+          <li>Jenkins</li><li>GitHub Actions</li><li>GitLab CI</li>
+          <li>TeamCity</li><li>Concourse</li><li>Fastlane</li>
+          <li>Nexus</li><li>JFrog</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">Observability</div>
+        <ul class="skill-list">
+          <li>Dynatrace</li><li>Grafana</li><li>Zabbix</li>
+          <li>ELK Stack</li><li>CloudWatch</li><li>NewRelic</li><li>Splunk</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-title">Languages &amp; AI</div>
+        <ul class="skill-list">
+          <li>Python</li><li>Bash</li><li>Ruby</li><li>Groovy</li>
+          <li>YAML</li><li>JSON</li><li>GenAI/LLM</li><li>TypeScript</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWS EXPERTISE -->
+<section id="aws" class="aws-section">
+  <div class="container">
+    <div class="section-label reveal">// aws</div>
+    <h2 class="section-title reveal"><em>AWS</em> is home base.</h2>
+
+    <p class="aws-intro reveal">14 years working with AWS across multiple companies — designing, migrating, auditing, and automating at enterprise scale. Certified Solutions Architect with deep hands-on experience across the core service surface.</p>
+
+    <div class="aws-grid">
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">CERT</div>
+        <h3 class="aws-card-title">AWS Certified Solutions Architect — Associate</h3>
+        <p class="aws-card-body">Cert No: AWS-ASA-16870. Design of multi-region, fault-tolerant AWS environments with auto-scaling, health checks, and disaster recovery built in from the start.</p>
+      </div>
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">PROJECT</div>
+        <h3 class="aws-card-title">AWS Audit Automation (Intel)</h3>
+        <p class="aws-card-body">Built audit framework analyzing configurations, IAM policies, and compliance posture across multiple AWS accounts. Flagged drift against security standards automatically, replacing manual audit cycles.</p>
+      </div>
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">IAC</div>
+        <h3 class="aws-card-title">Terraform &amp; CloudFormation at Scale</h3>
+        <p class="aws-card-body">Wrote the Terraform and CloudFormation templates used org-wide to provision VPCs, EC2, RDS, ALBs, Route53, CloudFront, and S3. Template libraries adopted as standard across 20+ teams.</p>
+      </div>
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">EKS</div>
+        <h3 class="aws-card-title">AWS EKS Production Management</h3>
+        <p class="aws-card-body">Managed large-scale AWS EKS clusters in production. Helm chart templates, Helmfile configs, KEDA event-driven autoscaling, cluster upgrades, node group rolling updates, IRSA configuration.</p>
+      </div>
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">OBSERVE</div>
+        <h3 class="aws-card-title">CloudWatch &amp; Observability</h3>
+        <p class="aws-card-body">Open-source cloudwatch-analyzer tool I built automates root-cause analysis by pulling CloudWatch logs, correlating events across services, and generating incident summaries — reducing MTTR substantially.</p>
+      </div>
+
+      <div class="aws-card reveal">
+        <div class="aws-badge">MIGRATE</div>
+        <h3 class="aws-card-title">On-Prem to AWS Migrations</h3>
+        <p class="aws-card-body">Led multiple on-prem to AWS migrations covering refactoring, data migration, and automated deployment. Most went live with no significant downtime. Infrastructure lift-and-shift from Rackspace to AWS at Barclays.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="container">
+    <div class="section-label reveal">// contact</div>
+    <h1 class="contact-title reveal">Let's <em>build</em><br>something real.</h1>
+
+    <div class="contact-methods reveal">
+      <a href="mailto:jigardpatel77@gmail.com" class="contact-btn contact-btn-primary">→ jigardpatel77@gmail.com</a>
+      <a href="tel:+12012384358" class="contact-btn contact-btn-ghost">+1-201-238-4358</a>
+      <a href="https://linkedin.com/in/jigar-patel-087522131" target="_blank" class="contact-btn contact-btn-ghost">LinkedIn</a>
+      <a href="https://github.com/jigarp77" target="_blank" class="contact-btn contact-btn-ghost">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+    <span>© 2026 Jigar Patel · Buford, GA</span>
+    <span>Built with restraint. Hosted on nothing fancy.</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
